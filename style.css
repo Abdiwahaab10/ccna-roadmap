@@ -1,0 +1,11 @@
+/* Custom scrollbar to match dark mode feeling */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #475569; border: 3px solid transparent; background-clip: content-box; border-radius: 99px; }
+::-webkit-scrollbar-thumb:hover { background: #64748b; border: 3px solid transparent; background-clip: content-box; border-radius: 99px; }
+
+/* Wrapper for Tailwind's dark mode if needed dynamically */
+.dark body {
+    background-color: #0f172a;
+    color: #f1f5f9;
+}
