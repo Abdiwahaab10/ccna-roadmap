@@ -1274,12 +1274,17 @@ const MainApp = () => {
                ))}
              </div>
              
-             <div className={`mt-12 p-6 rounded-xl border border-dashed flex flex-col items-center text-center
-                ${darkMode ? 'border-slate-700 bg-slate-800/50' : 'border-gray-300 bg-gray-50'}
+             <div className={`mt-12 p-6 rounded-xl border flex flex-col items-center text-center
+                ${darkMode ? 'border-purple-900/50 bg-purple-900/10' : 'border-purple-100 bg-purple-50'}
              `}>
-               <h4 className={`font-bold mb-2 ${darkMode ? 'text-slate-200' : 'text-slate-700'}`}>GitHub Pages Deployment</h4>
-               <p className={`text-sm max-w-lg mb-4 ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>
-                 Si aad website-kan u saarto GitHub, samee Repo cusub, koodkan gali, kadib settings-ka ka shid "Pages". Waa React Single File ah, markaa isticmaal Vite ama Create React App haddii aad doonayso inaad ballaariso.
+               <h4 className={`font-bold mb-2 flex items-center gap-2 ${darkMode ? 'text-purple-300' : 'text-purple-700'}`}>
+                 <Award size={20} /> About This Roadmap
+               </h4>
+               <p className={`text-sm max-w-2xl mb-4 leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+                 This interactive roadmap is designed to help you track your progress, practice labs, and master the concepts required for the **Cisco Certified Network Associate (CCNA 200-301)** exam. Use the tools provided to organize your study plan effectively.
+               </p>
+               <p className={`text-xs italic ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}>
+                 Updated for the latest exam objectives (v1.1)
                </p>
              </div>
           </div>
