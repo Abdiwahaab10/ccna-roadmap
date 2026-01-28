@@ -463,13 +463,23 @@ const Cheatsheet = ({ isDark }) => {
 
 const CountdownTimer = ({ examDate, setExamDate, isDark }) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0 });
+  const [localDate, setLocalDate] = useState(examDate || "");
   const [isEditing, setIsEditing] = useState(!examDate);
+
+  // Sync local state only when entering edit mode or initial load
+  useEffect(() => {
+    if (!examDate) setIsEditing(true);
+    setLocalDate(examDate || "");
+  }, [examDate]);
 
   useEffect(() => {
     if (!examDate) return;
     
     const calculateTime = () => {
-      const difference = new Date(examDate) - new Date();
+      const target = new Date(examDate);
+      const now = new Date();
+      const difference = target - now;
+      
       if (difference > 0) {
         return {
           days: Math.floor(difference / (1000 * 60 * 60 * 24)),
@@ -484,6 +494,13 @@ const CountdownTimer = ({ examDate, setExamDate, isDark }) => {
     return () => clearInterval(timer);
   }, [examDate]);
 
+  const handleSave = () => {
+      setExamDate(localDate);
+      setIsEditing(false);
+  };
+
+  const isTimeUp = timeLeft.days === 0 && timeLeft.hours === 0 && examDate;
+
   return (
     <div className={`p-6 rounded-2xl border shadow-sm transition-all mb-8
       ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-100'}
@@ -493,44 +510,56 @@ const CountdownTimer = ({ examDate, setExamDate, isDark }) => {
           <Clock className="text-blue-500" size={20} /> Exam Countdown
         </h3>
         <button 
-          onClick={() => setIsEditing(!isEditing)}
-          className={`text-xs px-2 py-1 rounded border transition-colors
-             ${isDark ? 'border-slate-600 text-slate-400 hover:text-white' : 'border-slate-200 text-slate-500 hover:text-blue-600'}
+          onClick={() => {
+            if (isEditing) handleSave();
+            else setIsEditing(true);
+          }}
+          className={`text-xs px-3 py-1.5 rounded-lg border font-medium transition-all
+             ${isDark 
+                ? 'border-slate-600 text-slate-300 hover:text-white hover:bg-slate-700' 
+                : 'border-slate-200 text-slate-600 hover:text-blue-600 hover:bg-slate-50'}
           `}
         >
-          {isEditing ? 'Save' : 'Edit Date'}
+          {isEditing ? 'Save Date' : 'Edit Date'}
         </button>
       </div>
 
       {isEditing ? (
-        <div className="flex flex-col gap-2">
-          <label className={`text-xs ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Set your target exam date:</label>
+        <div className="flex flex-col gap-3 animate-fade-in">
+          <label className={`text-xs font-medium uppercase tracking-wider ${isDark ? 'text-slate-400' : 'text-slate-500'}`}>Set your target exam date:</label>
           <input 
             type="date" 
-            value={examDate} 
-            onChange={(e) => {
-              setExamDate(e.target.value);
-            }}
-            className={`p-2 rounded border focus:outline-none focus:ring-2 focus:ring-blue-500 w-full
+            value={localDate} 
+            onChange={(e) => setLocalDate(e.target.value)}
+            className={`p-3 rounded-xl border focus:outline-none focus:ring-2 focus:ring-blue-500 w-full font-mono
               ${isDark ? 'bg-slate-900 border-slate-600 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}
             `}
           />
+          <p className="text-[10px] text-slate-500">Pick a date in the future to start the countdown.</p>
         </div>
       ) : (
-        <div className="flex gap-4 items-center">
-          <div className="text-center">
-            <span className={`text-4xl font-black block ${isDark ? 'text-blue-400' : 'text-blue-600'}`}>
-              {timeLeft.days}
-            </span>
-            <span className={`text-xs uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Days</span>
-          </div>
-          <div className={`h-10 w-px ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}></div>
-           <div className="text-center">
-            <span className={`text-4xl font-black block ${isDark ? 'text-purple-400' : 'text-purple-600'}`}>
-              {timeLeft.hours}
-            </span>
-            <span className={`text-xs uppercase tracking-wider ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Hours</span>
-          </div>
+        <div className="flex gap-6 items-center justify-center py-2">
+          {isTimeUp ? (
+             <div className={`text-center font-bold text-xl ${isDark ? 'text-green-400' : 'text-green-600'}`}>
+                 Good Luck on your Exam! 🚀
+             </div>
+          ) : (
+            <>
+              <div className="text-center group cursor-default">
+                <span className={`text-5xl md:text-6xl font-black block tracking-tighter transition-colors ${isDark ? 'text-blue-400 group-hover:text-blue-300' : 'text-blue-600 group-hover:text-blue-500'}`}>
+                  {timeLeft.days}
+                </span>
+                <span className={`text-xs font-bold uppercase tracking-widest ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Days</span>
+              </div>
+              <div className={`h-12 w-px ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}></div>
+              <div className="text-center group cursor-default">
+                <span className={`text-5xl md:text-6xl font-black block tracking-tighter transition-colors ${isDark ? 'text-purple-400 group-hover:text-purple-300' : 'text-purple-600 group-hover:text-purple-500'}`}>
+                  {timeLeft.hours}
+                </span>
+                <span className={`text-xs font-bold uppercase tracking-widest ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Hours</span>
+              </div>
+            </>
+          )}
         </div>
       )}
     </div>
