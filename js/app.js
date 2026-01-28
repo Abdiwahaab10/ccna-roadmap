@@ -462,7 +462,7 @@ const Cheatsheet = ({ isDark }) => {
 };
 
 const CountdownTimer = ({ examDate, setExamDate, isDark }) => {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0 });
+  const [timeLeft, setTimeLeft] = useState({ weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0 });
   const [localDate, setLocalDate] = useState(examDate || "");
   const [isEditing, setIsEditing] = useState(!examDate);
 
@@ -482,15 +482,18 @@ const CountdownTimer = ({ examDate, setExamDate, isDark }) => {
       
       if (difference > 0) {
         return {
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
+          weeks: Math.floor(difference / (1000 * 60 * 60 * 24 * 7)),
+          days: Math.floor((difference / (1000 * 60 * 60 * 24)) % 7),
           hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
+          minutes: Math.floor((difference / 1000 / 60) % 60),
+          seconds: Math.floor((difference / 1000) % 60),
         };
       }
-      return { days: 0, hours: 0 };
+      return { weeks: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
     };
 
     setTimeLeft(calculateTime());
-    const timer = setInterval(() => setTimeLeft(calculateTime()), 1000 * 60); // update every minute
+    const timer = setInterval(() => setTimeLeft(calculateTime()), 1000); // update every second
     return () => clearInterval(timer);
   }, [examDate]);
 
@@ -499,7 +502,20 @@ const CountdownTimer = ({ examDate, setExamDate, isDark }) => {
       setIsEditing(false);
   };
 
-  const isTimeUp = timeLeft.days === 0 && timeLeft.hours === 0 && examDate;
+  const isTimeUp = timeLeft.weeks === 0 && timeLeft.days === 0 && timeLeft.hours === 0 && timeLeft.minutes === 0 && timeLeft.seconds === 0 && examDate;
+
+  const TimeBlock = ({ value, label, color }) => (
+    <div className="text-center group cursor-default min-w-[50px] md:min-w-[60px]">
+      <span className={`text-3xl md:text-5xl font-black block tracking-tighter transition-colors ${isDark ? `${color}-400 group-hover:${color}-300` : `${color}-600 group-hover:${color}-500`}`}>
+        {value}
+      </span>
+      <span className={`text-[10px] md:text-xs font-bold uppercase tracking-widest ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>{label}</span>
+    </div>
+  );
+
+  const Separator = () => (
+    <div className={`h-8 w-px md:h-12 ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}></div>
+  );
 
   return (
     <div className={`p-6 rounded-2xl border shadow-sm transition-all mb-8
@@ -538,26 +554,22 @@ const CountdownTimer = ({ examDate, setExamDate, isDark }) => {
           <p className="text-[10px] text-slate-500">Pick a date in the future to start the countdown.</p>
         </div>
       ) : (
-        <div className="flex gap-6 items-center justify-center py-2">
+        <div className="flex flex-wrap gap-2 md:gap-6 items-center justify-center py-2">
           {isTimeUp ? (
              <div className={`text-center font-bold text-xl ${isDark ? 'text-green-400' : 'text-green-600'}`}>
                  Good Luck on your Exam! 🚀
              </div>
           ) : (
             <>
-              <div className="text-center group cursor-default">
-                <span className={`text-5xl md:text-6xl font-black block tracking-tighter transition-colors ${isDark ? 'text-blue-400 group-hover:text-blue-300' : 'text-blue-600 group-hover:text-blue-500'}`}>
-                  {timeLeft.days}
-                </span>
-                <span className={`text-xs font-bold uppercase tracking-widest ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Days</span>
-              </div>
-              <div className={`h-12 w-px ${isDark ? 'bg-slate-700' : 'bg-slate-200'}`}></div>
-              <div className="text-center group cursor-default">
-                <span className={`text-5xl md:text-6xl font-black block tracking-tighter transition-colors ${isDark ? 'text-purple-400 group-hover:text-purple-300' : 'text-purple-600 group-hover:text-purple-500'}`}>
-                  {timeLeft.hours}
-                </span>
-                <span className={`text-xs font-bold uppercase tracking-widest ${isDark ? 'text-slate-500' : 'text-slate-400'}`}>Hours</span>
-              </div>
+              <TimeBlock value={timeLeft.weeks} label="Weeks" color="text-blue" />
+              <Separator />
+              <TimeBlock value={timeLeft.days} label="Days" color="text-indigo" />
+              <Separator />
+              <TimeBlock value={timeLeft.hours} label="Hours" color="text-purple" />
+              <Separator />
+              <TimeBlock value={timeLeft.minutes} label="Mins" color="text-pink" />
+              <Separator />
+              <TimeBlock value={timeLeft.seconds} label="Secs" color="text-rose" />
             </>
           )}
         </div>
