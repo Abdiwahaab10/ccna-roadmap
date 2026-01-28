@@ -498,7 +498,7 @@ const CountdownTimer = ({ examDate, setExamDate, isDark }) => {
              ${isDark ? 'border-slate-600 text-slate-400 hover:text-white' : 'border-slate-200 text-slate-500 hover:text-blue-600'}
           `}
         >
-          {isEditing ? 'Cancel' : 'Edit Date'}
+          {isEditing ? 'Save' : 'Edit Date'}
         </button>
       </div>
 
@@ -510,7 +510,6 @@ const CountdownTimer = ({ examDate, setExamDate, isDark }) => {
             value={examDate} 
             onChange={(e) => {
               setExamDate(e.target.value);
-              setIsEditing(false);
             }}
             className={`p-2 rounded border focus:outline-none focus:ring-2 focus:ring-blue-500 w-full
               ${isDark ? 'bg-slate-900 border-slate-600 text-white' : 'bg-slate-50 border-slate-300 text-slate-900'}
