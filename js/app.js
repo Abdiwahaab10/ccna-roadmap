@@ -1424,9 +1424,9 @@ const MainApp = () => {
              </div>
            ))}
         </div>
-        <p className="text-sm">
+        <p className="text-sm border-t border-slate-800/50 pt-6 mt-2 max-w-xs mx-auto">
           &copy; {new Date().getFullYear()} CCNA Networking Roadmap. <br/>
-          Designed for GitHub Pages Deployment.
+          <span className="opacity-75">All Rights Reserved.</span>
         </p>
       </footer>
     </div>
