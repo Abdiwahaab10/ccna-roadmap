@@ -1446,13 +1446,24 @@ const MainApp = () => {
          ${darkMode ? 'bg-[#0b1120] border-slate-800 text-slate-500' : 'bg-slate-900 border-slate-800 text-slate-400'}
       `}>
         <div className="flex justify-center gap-6 mb-6">
-           {/* Social Placeholders */}
-           {[1,2,3].map(i => (
-             <div key={i} className={`w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-colors
-                ${darkMode ? 'bg-slate-800 hover:bg-slate-700' : 'bg-slate-800 hover:bg-slate-700'}
-             `}>
-               <div className="w-4 h-4 rounded-full bg-slate-600"></div>
-             </div>
+           {/* Social Icons */}
+           {[
+             { icon: ExternalLink, link: "https://github.com/Abdiwahaab10", label: "GitHub" },
+             { icon: Clock, link: "#", label: "History" }, // Using generic icons as placeholders for real social not in Lucide imp
+             { icon: Terminal, link: "#", label: "CLI" }
+           ].map((item, i) => (
+             <a 
+               key={i} 
+               href={item.link}
+               target="_blank"
+               rel="noopener noreferrer"
+               aria-label={item.label}
+               className={`w-10 h-10 rounded-full flex items-center justify-center transition-all transform hover:scale-110
+                ${darkMode ? 'bg-slate-800 hover:bg-twitter-blue hover:text-white' : 'bg-slate-800 hover:bg-blue-600 text-slate-400 hover:text-white'}
+             `}
+             >
+               <item.icon size={18} />
+             </a>
            ))}
         </div>
         <p className="text-sm border-t border-slate-800/50 pt-6 mt-2 max-w-xs mx-auto">
