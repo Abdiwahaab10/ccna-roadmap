@@ -998,57 +998,83 @@ const MainApp = () => {
     switch(activeTab) {
       case 'home':
         return (
-          <div className="text-center py-16 px-4">
-            <div className={`w-20 h-20 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl rotate-3 transition-transform hover:rotate-6
-               ${darkMode ? 'bg-gradient-to-br from-blue-600 to-purple-600 text-white' : 'bg-gradient-to-br from-blue-500 to-cyan-400 text-white'}
+          <div className="text-center py-12 px-4 animate-fade-in">
+            {/* Hero Section */}
+            <div className={`w-24 h-24 rounded-3xl flex items-center justify-center mx-auto mb-8 shadow-2xl rotate-3 transition-transform hover:rotate-6
+               ${darkMode ? 'bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-blue-900/40' : 'bg-gradient-to-br from-blue-500 to-cyan-400 text-white shadow-blue-200'}
             `}>
-              <BookOpen size={40} />
+              <BookOpen size={48} />
             </div>
-            <h1 className={`text-5xl md:text-7xl font-black mb-6 tracking-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
-              CCNA <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-purple-500">Mastery</span>
+            
+            <h1 className={`text-4xl md:text-6xl font-black mb-6 tracking-tight leading-tight ${darkMode ? 'text-white' : 'text-slate-900'}`}>
+              Master the <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500">Cisco CCNA</span> <br className="hidden md:block" /> Exam in 12 Weeks.
             </h1>
-            <p className={`text-xl max-w-2xl mx-auto mb-12 leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
-              Roadmap casri ah oo kugu hagaya shahaadada Cisco CCNA 200-301. <br/>
-              <span className="font-semibold text-blue-500">12 Toddobaad. 8 Modules. 1 Hadaf.</span>
+            
+            <p className={`text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>
+              Your ultimate interactive guide to the 200-301 certification. 
+              Track progress, practice labs, and simulate the CLI environment all in one place.
             </p>
             
-            <div className="max-w-md mx-auto mb-12">
-               <CountdownTimer examDate={examDate} setExamDate={setExamDate} isDark={darkMode} />
-            </div>
-
             <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
               <button 
                 onClick={() => setActiveTab('modules')}
-                className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition-all transform hover:-translate-y-1 shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2"
+                className="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-500 transition-all transform hover:-translate-y-1 shadow-lg shadow-blue-500/30 flex items-center justify-center gap-2 group"
               >
-                Start Learning <ChevronDown className="-rotate-90" size={18} />
+                Start Learning <ChevronDown className="-rotate-90 group-hover:translate-x-1 transition-transform" size={18} />
               </button>
               <button 
-                 onClick={() => setActiveTab('cli')}
+                 onClick={() => setActiveTab('labs')}
                  className={`px-8 py-4 rounded-xl font-bold border transition-colors flex items-center justify-center gap-2
-                  ${darkMode ? 'bg-slate-800 border-slate-700 text-white hover:bg-slate-700' : 'bg-white text-slate-700 border-slate-200 hover:bg-gray-50'}
+                  ${darkMode ? 'bg-slate-800 border-slate-700 text-white hover:bg-slate-750' : 'bg-white text-slate-700 border-slate-200 hover:bg-gray-50'}
                  `}
               >
-                <Terminal size={18} /> Try CLI
+                <Terminal size={18} /> View Labs
               </button>
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-5xl mx-auto">
+            {/* Countdown Section */}
+            <div className="max-w-3xl mx-auto mb-20">
+               <CountdownTimer examDate={examDate} setExamDate={setExamDate} isDark={darkMode} />
+            </div>
+
+            {/* Features Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-left max-w-6xl mx-auto mb-20">
               {[
-                { label: "Global Progress", val: `${globalProgress}%`, color: "text-green-500", icon: CheckCircle },
-                { label: "Total Modules", val: "8", color: "text-purple-500", icon: BookOpen },
-                { label: "Lab Exercises", val: "15+", color: "text-orange-500", icon: Terminal },
+                { 
+                  label: "Structured Modules", 
+                  desc: "8 Core modules covering 100% of exam topics.",
+                  val: `${Math.round(globalProgress)}% Done`, 
+                  color: "text-blue-500", 
+                  bg: "bg-blue-500/10",
+                  icon: Layers 
+                },
+                { 
+                  label: "CLI Simulator", 
+                  desc: "Practice commands directly in your browser without equipment.",
+                  val: "Interactive", 
+                  color: "text-purple-500", 
+                  bg: "bg-purple-500/10",
+                  icon: Terminal 
+                },
+                { 
+                  label: "Study Tools", 
+                  desc: "Built-in Flashcards, Cheatsheets, and Quizzes.",
+                  val: "Included", 
+                  color: "text-pink-500", 
+                  bg: "bg-pink-500/10",
+                  icon: Brain 
+                },
               ].map((stat, i) => (
-                <div key={i} className={`p-6 rounded-2xl border shadow-sm flex items-center gap-4 transition-transform hover:scale-[1.02]
-                  ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-100'}
+                <div key={i} className={`p-8 rounded-3xl border transition-all hover:shadow-lg hover:-translate-y-1
+                  ${darkMode ? 'bg-slate-800 border-slate-700 hover:shadow-slate-900/50' : 'bg-white border-slate-100 hover:shadow-slate-200/50'}
                 `}>
-                  <div className={`p-3 rounded-xl ${darkMode ? 'bg-slate-700' : 'bg-slate-50'}`}>
-                    <stat.icon size={24} className={stat.color} />
+                  <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${stat.bg}`}>
+                    <stat.icon size={28} className={stat.color} />
                   </div>
-                  <div>
-                    <h3 className={`text-2xl font-bold ${darkMode ? 'text-white' : 'text-slate-900'}`}>{stat.val}</h3>
-                    <p className={`text-sm ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>{stat.label}</p>
+                  <h3 className={`text-xl font-bold mb-2 ${darkMode ? 'text-white' : 'text-slate-900'}`}>{stat.label}</h3>
+                  <p className={`text-sm mb-4 leading-relaxed ${darkMode ? 'text-slate-400' : 'text-slate-500'}`}>{stat.desc}</p>
+                  <div className={`text-xs font-bold uppercase tracking-wider ${stat.color}`}>
+                    {stat.val}
                   </div>
                 </div>
               ))}
