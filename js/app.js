@@ -23,6 +23,9 @@ import {
     { term: "Subnetting", def: "The process of dividing a single network into smaller sub-networks." },
     { term: "Trunk", def: "A link carrying traffic for multiple VLANs (usually using 802.1Q)." },
     { term: "VLAN", def: "Virtual Local Area Network. Logically grouping devices on the same switch." },
+    { term: "API", def: "Application Programming Interface. Allows two applications to talk to each other." },
+    { term: "JSON", def: "JavaScript Object Notation. A lightweight data-interchange format used in automation." },
+    { term: "SDN", def: "Software Defined Networking. Decoupling the control plane from the data plane." },
   ];
   
   // --- DATA: Cheatsheet ---
@@ -64,6 +67,24 @@ import {
               { cmd: "show ip route", desc: "View routing table" },
               { cmd: "show vlan brief", desc: "View VLAN information" },
               { cmd: "ping [ip]", desc: "Test connectivity" }
+          ]
+      },
+      {
+          category: "Routing",
+          commands: [
+              { cmd: "ip route [dst] [mask] [next-hop]", desc: "Configure static route" },
+              { cmd: "router ospf [process-id]", desc: "Start OSPF process" },
+              { cmd: "network [ip] [mask] area [id]", desc: "Advertise OSPF network" },
+              { cmd: "router rip", desc: "Start RIP process" }
+          ]
+      },
+      {
+          category: "Security (ACLs)",
+          commands: [
+              { cmd: "access-list [id] permit [src]", desc: "Create standard ACL" },
+              { cmd: "access-class [id] in/out", desc: "Apply ACL to VTY line" },
+              { cmd: "ip access-group [id] in/out", desc: "Apply ACL to interface" },
+              { cmd: "service password-encryption", desc: "Encrypt passwords" }
           ]
       }
   ];
