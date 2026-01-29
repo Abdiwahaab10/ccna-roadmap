@@ -104,6 +104,11 @@ import {
     { q: "Which command encrypts all plaintext passwords on a Cisco device?", options: ["enable secret", "service password-encryption", "crypto key generate", "security passwords min-length"], ans: 1 },
     { q: "What is the primary function of a VLAN?", options: ["Increase broadcast domain size", "Decrease collision domains", "Logically separate broadcast domains", "Routing between networks"], ans: 2 },
     { q: "Which IPv6 address type is equivalent to a private IPv4 address?", options: ["Global Unicast", "Link-Local", "Unique Local", "Anycast"], ans: 2 },
+    { q: "Which wireless standard is also known as Wi-Fi 6?", options: ["802.11ac", "802.11n", "802.11ax", "802.11g"], ans: 2 },
+    { q: "What is the administrative distance of a static route by default?", options: ["0", "1", "90", "110"], ans: 1 },
+    { q: "Which port security violation mode drops packets and sends a syslog message/SNMP trap?", options: ["Protect", "Restrict", "Shutdown", "Disable"], ans: 1 },
+    { q: "Which command would you use to see the routing table?", options: ["show ip interface brief", "show ip route", "show ip protocols", "show running-config"], ans: 1 },
+    { q: "What is the purpose of STP?", options: ["Route packets", "Prevent L2 loops", "Assign IP addresses", "Encrypt data"], ans: 1 },
   ];
   
   // --- DATA: Resources ---
@@ -334,6 +339,28 @@ import {
   
   ! Enable NAT Overload
   R1(config)# ip nat inside source list 1 interface g0/0 overload`
+    },
+    {
+      title: "DHCP Server Config",
+      desc: "Router ka dhig DHCP server.",
+      scenario: "Scenario: Router-ku (R1) ha siiyo IP addresses shabakadda 192.168.1.0/24. Gateway waa 192.168.1.1, DNS waa 8.8.8.8.",
+      code: `R1(config)# ip dhcp excluded-address 192.168.1.1 192.168.1.10
+  R1(config)# ip dhcp pool LAN-POOL
+  R1(dhcp-config)# network 192.168.1.0 255.255.255.0
+  R1(dhcp-config)# default-router 192.168.1.1
+  R1(dhcp-config)# dns-server 8.8.8.8
+  R1(dhcp-config)# exit`
+    },
+    {
+      title: "Standard ACL",
+      desc: "Xannib PC gaar ah (Security).",
+      scenario: "Scenario: Diid PC-ga 192.168.10.5 inuu galo Server-ka (deny), laakiin ogoloow cid kasta oo kale (permit any).",
+      code: `R1(config)# access-list 10 deny host 192.168.10.5
+  R1(config)# access-list 10 permit any
+  
+  ! Apply to interface closest to destination (Standard ACL rule)
+  R1(config)# interface g0/0
+  R1(config-if)# ip access-group 10 out`
     }
   ];
 
