@@ -145,122 +145,181 @@ import {
   const modulesData = [
     {
       id: 1,
-      title: "Module 1: Aasaaska Shabakadda",
-      desc: "Fahamka luuqadda kombiyuutarrada iyo qalabka aasaasiga ah.",
+      title: "Module 1: Network Fundamentals (1.0)",
+      desc: "Domain 1.0: Routers, Switches, Cabling, TCP/UDP & IPv6.",
       steps: [
-        "Qeexida Network Components (Router, Switch, Firewall, AP)",
-        "Network Topologies (Star, Mesh, Hybrid, 2-Tier vs 3-Tier)",
-        "OSI Model (7 Layers) - Faham qoto dheer",
-        "TCP/IP Model vs OSI Model",
-        "Cabling & Physical Layer (Copper, Fiber, Speed/Duplex)"
+        "1.1 Explain the role and function of network components (Router, Switch, L2/L3)",
+        "1.2 Describe characteristics of network topology architectures (2-tier, 3-tier, Spine-leaf)",
+        "1.3 Compare physical interface and cabling types (Single-mode, Multi-mode, Copper)",
+        "1.4 Identify interface and cable issues (Collisions, Errors, Duplex mismatch)",
+        "1.5 Compare TCP to UDP",
+        "1.6 Configure and verify IPv4 addressing and subnetting"
       ],
-      action: "Sawiro OSI model-ka warqad, qor Protocol-yada caanka ah ee lakab kasta (HTTP, IP, MAC)."
+      action: "Draw the OSI model and map devices (Hub, Switch, Router) to their layers."
     },
     {
       id: 2,
-      title: "Module 2: IP Addressing & Subnetting",
-      desc: "Barashada IPv4, IPv6 iyo xisaabinta Subnets-ka.",
+      title: "Module 2: Network Access - VLANs (2.0)",
+      desc: "Domain 2.0: VLANs, Trunking & 802.1Q.",
       steps: [
-        "Binary & Hexadecimal Conversion",
-        "IPv4 Classes & Private vs Public IP",
-        "Subnetting Basics (FLSM) - /24 to /30",
-        "VLSM (Variable Length Subnet Mask)",
-        "IPv6 Basics & Address Types"
+        "2.1 Configure and verify VLANs (normal range) spanning multiple switches",
+        "2.2 Configure and verify interswitch connectivity (Trunk ports, 802.1Q)",
+        "2.3 Configure and verify Layer 2 discovery protocols (Cisco CDP and LLDP)",
+        "2.4 Configure and verify (Layer 2/Layer 3) EtherChannel (LACP)",
+        "Troubleshooting VLANs and Trunks (Native VLAN mismatch)"
       ],
-      action: "Booqo website-yada 'Subnetting Practice', maalin kasta 15 daqiiqo ku bixi xisaabinta."
+      action: "Configure VLAN 10 & 20 on two switches, configure a Trunk link between them."
     },
     {
       id: 3,
-      title: "Module 3: Ethernet Switching (L2)",
-      desc: "Habaynta Switch-ka Cisco iyo VLANs.",
+      title: "Module 3: Network Access - STP & Wireless (2.0)",
+      desc: "Domain 2.0: Spanning Tree & Wireless Architecture.",
       steps: [
-        "Initial Switch Configuration (Console, SSH)",
-        "VLANs (Virtual LANs) Abuurista iyo maamulka",
-        "Trunking (802.1Q) & Native VLANs",
-        "Spanning Tree Protocol (STP) Basics",
-        "EtherChannel (LACP) Configuration"
+        "2.5 Describe the need for and basic operations of Rapid PVST+ Spanning Tree Protocol",
+        "2.6 Compare Cisco Wireless Architectures and AP modes",
+        "2.7 Describe physical infrastructure connections of WLAN components (AP, WLC)",
+        "2.8 Describe AP and WLC management access connections (Telnet/SSH/HTTP/HTTPS)",
+        "2.9 Configure the components of a wireless LAN access for client connectivity using GUI only"
       ],
-      action: "Samee Lab leh 3 Switch, abuur VLANs 10, 20, 30 oo isku xir (Trunking)."
+      action: "Research WPA3 encryption vs WPA2. Why is WPA3 better?"
     },
     {
       id: 4,
-      title: "Module 4: Routing (L3)",
-      desc: "Isku xirka shabakadaha kala duwan iyo Routing Protocols.",
+      title: "Module 4: IP Connectivity - Routing (3.0)",
+      desc: "Domain 3.0: Routing Tables & Static Routing.",
       steps: [
-        "Routing Table Analysis (AD & Metric)",
-        "Static Routing & Default Routes",
-        "Inter-VLAN Routing (Router-on-a-Stick & SVI)",
-        "Dynamic Routing: OSPFv2 (Single Area)",
-        "First Hop Redundancy (HSRP)"
+        "3.1 Interpret the components of routing table (Mac, AD, Metric, Next-hop)",
+        "3.2 Determine how a router makes a forwarding decision by default",
+        "3.3 Configure and verify IPv4 and IPv6 static routing",
+        "3.3a Default route",
+        "3.3b Network route",
+        "3.3c Host route",
+        "3.3d Floating static"
       ],
-      action: "Isku xir Router iyo Switch, samee ROAS si VLAN-yadu u wada hadlaan."
+      action: "Configure a Floating Static Route as a backup path."
     },
     {
       id: 5,
-      title: "Module 5: IP Services",
-      desc: "Adeegyada muhiimka ah ee shabakadda (DHCP, DNS, NAT).",
+      title: "Module 5: IP Connectivity - OSPF (3.0)",
+      desc: "Domain 3.0: Dynamic Routing with OSPFv2.",
       steps: [
-        "DHCP Server Configuration on Router",
-        "DNS Concepts & Configuration",
-        "NAT (Static, Dynamic) & PAT (Overload)",
-        "NTP (Time Synchronization)"
+        "3.4 Configure and verify single area OSPFv2",
+        "3.4a Neighbor adjacencies",
+        "3.4b Point-to-point",
+        "3.4c Broadcast (DR/BDR selection)",
+        "3.4d Router ID",
+        "3.5 Describe the purpose of First Hop Redundancy Protocol (HSRP)"
       ],
-      action: "Ka dhig Router-kaaga DHCP server, samee PAT si PC-yadu internet u galaan (Simulation)."
+      action: "Configure OSPF Single Area (Area 0) on 3 Routers."
     },
     {
       id: 6,
-      title: "Module 6: Security Fundamentals",
-      desc: "Ilaalinta qalabka iyo xogta shabakadda.",
+      title: "Module 6: IP Services (4.0)",
+      desc: "Domain 4.0: DHCP, DNS, NAT, & NTP.",
       steps: [
-        "Device Security (SSH, Passwords, Banners)",
-        "Port Security (Layer 2 Protection)",
-        "DHCP Snooping & DAI Basics",
-        "ACLs (Standard & Extended)",
-        "VPN Concepts (Site-to-Site, Remote Access)"
+        "4.1 Configure and verify inside source NAT using static and pools",
+        "4.2 Configure and verify NTP operating in a client and server mode",
+        "4.3 Explain the role of DHCP and DNS within the network",
+        "4.4 Explain the function of SNMP in network operations",
+        "4.5 Describe the use of syslog features including facilities and levels",
+        "4.6 Configure and verify DHCP client and relay"
       ],
-      action: "Samee ACL diidaya in PC gaar ah uu galo Web Server, laakiin u ogolaanaya Ping."
+      action: "Configure PAT so internal private IPs can reach the 'Internet' loopback."
     },
     {
       id: 7,
-      title: "Module 7: Wireless & Automation",
-      desc: "Shabakadaha casriga ah iyo Automation-ka.",
+      title: "Module 7: Security Fundamentals (5.0)",
+      desc: "Domain 5.0: Concepts, Access Control & Port Security.",
       steps: [
-        "Wireless Architectures (AP Modes, WLC)",
-        "Wireless Security (WPA2, WPA3)",
-        "SDN & Controller-Based Networking",
-        "REST APIs & JSON Data format",
-        "Automation Tools (Ansible, Puppet, Chef)"
+        "5.1 Define key security concepts (threats, vulnerabilities, exploits, and mitigation techniques)",
+        "5.2 Describe security program elements (user awareness, training, and physical access control)",
+        "5.3 Configure and verify device access control using local passwords",
+        "5.4 Describe security password policies elements, such as management, complexity, and alternatives",
+        "5.6 Configure and verify Layer 2 security features (DHCP snooping, dynamic ARP inspection, and port security)"
       ],
-      action: "Soo deji JSON file fudud, isku day inaad fahanto Key-Value pairs-ka ku jira."
+      action: "Enable Port Security on a switch port to allow only 1 specific MAC address."
     },
     {
       id: 8,
-      title: "Module 8: Exam Prep & Labs",
-      desc: "Isku dubaridka wax walba iyo diyaarinta imtixaanka.",
+      title: "Module 8: Security - ACLs & VPNs (5.0)",
+      desc: "Domain 5.0: Access Control Lists & VPNs.",
       steps: [
-        "Mega Lab Creation (Routing + Switching + Security)",
-        "Troubleshooting Methodology (Ping, Traceroute)",
-        "Practice Exams & Review",
-        "Final Review of Exam Topics"
+        "5.7 Differentiate authentication, authorization, and accounting (AAA) concepts",
+        "5.8 Describe wireless security protocols (WPA, WPA2, and WPA3)",
+        "5.9 Configure and verify WLAN within the GUI using WPA2 PSK",
+        "5.5 Describe remote access and site-to-site VPNs",
+        "5.10 Configure and verify access control lists"
       ],
-      action: "Gal imtixaan tijaabo ah (Practice Exam), sax khaladaadkaaga."
+      action: "Create an Extended ACL to block Telnet but allow HTTP."
+    },
+    {
+      id: 9,
+      title: "Module 9: Automation & Programmability (6.0)",
+      desc: "Domain 6.0: SDN, APIs, and Tools.",
+      steps: [
+        "6.1 Explain how automation impacts network management",
+        "6.2 Compare traditional networks with controller-based networking",
+        "6.3 Describe controller-based and software defined architectures (overlay, underlay, and fabric)",
+        "6.4 Compare traditional campus device management with Cisco DNA Center enabled device management",
+        "6.5 Describe characteristics of REST-based APIs (CRUD, HTTP verbs, and data encoding)"
+      ],
+      action: "Explore Cisco DevNet Sandbox (online) to see REST APIs in action."
+    },
+    {
+      id: 10,
+      title: "Module 10: Automation - JSON & config mgmt (6.0)",
+      desc: "Domain 6.0: Data Formats and Config Management.",
+      steps: [
+        "6.6 Recognize the capabilities of configuration management mechanisms Puppet, Chef, and Ansible",
+        "6.7 Interpret JSON encoded data",
+        "Reviewing XML and YAML concepts",
+        "Understanding Northbound vs Southbound APIs"
+      ],
+      action: "Write a simple JSON object describing a Router with interfaces."
+    },
+    {
+      id: 11,
+      title: "Module 11: Final Review (All Domains)",
+      desc: "Reviewing all exam topics and filling gaps.",
+      steps: [
+        "Review Domain 1.0 (Fundamentals)",
+        "Review Domain 2.0 (Access)",
+        "Review Domain 3.0 (Connectivity)",
+        "Review Domain 4.0 (Services)",
+        "Review Domain 5.0 (Security)",
+        "Review Domain 6.0 (Automation)"
+      ],
+      action: "Take a full practice exam simulation."
+    },
+    {
+      id: 12,
+      title: "Module 12: The Mega Lab",
+      desc: "Building a complete network from scratch.",
+      steps: [
+        "Design: Topology with Core/Dist/Access layers",
+        "L2 Implementation: VLANs, Trunks, EtherChannel, STP Security",
+        "L3 Implementation: ROAS, OSPF, Default Routes, Floating Static",
+        "Services: DHCP Relay, NAT/PAT, NTP Client",
+        "Security: ACLs covering the servers, SSH access only"
+      ],
+      action: "Build the final Mega Lab in Packet Tracer without looking at notes."
     }
   ];
   
   // --- DATA: Schedule ---
   const scheduleData = [
-    { week: 1, mod: "Module 1", topic: "OSI, TCP/IP, Cabling" },
-    { week: 2, mod: "Module 2", topic: "IPv4, Binary, Conversion" },
-    { week: 3, mod: "Module 2", topic: "Subnetting (Focus Week)" },
-    { week: 4, mod: "Module 3", topic: "Switch Config, VLANs" },
-    { week: 5, mod: "Module 3", topic: "STP, EtherChannel, Security" },
-    { week: 6, mod: "Module 4", topic: "Static Routes, ROAS" },
-    { week: 7, mod: "Module 4", topic: "OSPFv2, Routing Tables" },
-    { week: 8, mod: "Module 5", topic: "DHCP, DNS, NAT/PAT" },
-    { week: 9, mod: "Module 6", topic: "ACLs, SSH, Port Security" },
-    { week: 10, mod: "Module 7", topic: "Wireless, JSON, SDN" },
-    { week: 11, mod: "Module 8", topic: "Mega Lab (Full Network)" },
-    { week: 12, mod: "Module 8", topic: "Practice Exams & Review" },
+    { week: 1, mod: "Module 1", topic: "Network Fundamentals (Domain 1.0)" },
+    { week: 2, mod: "Module 2", topic: "Network Access & VLANs (Domain 2.0)" },
+    { week: 3, mod: "Module 3", topic: "STP & Wireless (Domain 2.0)" },
+    { week: 4, mod: "Module 4", topic: "IP Connectivity - Routing (Domain 3.0)" },
+    { week: 5, mod: "Module 5", topic: "IP Connectivity - OSPF (Domain 3.0)" },
+    { week: 6, mod: "Module 6", topic: "Services - DHCP/NAT (Domain 4.0)" },
+    { week: 7, mod: "Module 7", topic: "Security - Concepts (Domain 5.0)" },
+    { week: 8, mod: "Module 8", topic: "Security - ACLs & VPNs (Domain 5.0)" },
+    { week: 9, mod: "Module 9", topic: "Automation & SDN (Domain 6.0)" },
+    { week: 10, mod: "Module 10", topic: "JSON/Config Mgmt (Domain 6.0)" },
+    { week: 11, mod: "Module 11", topic: "Complete Review (All Domains)" },
+    { week: 12, mod: "Module 12", topic: "Mega Lab & Exam Simulation" },
   ];
   
   // --- DATA: Labs ---
@@ -1028,6 +1087,48 @@ const ModuleCard = ({ module, completedSteps, toggleStep, isDark, userNotes, sav
   );
 };
 
+
+const Notebook = ({ modules, userNotes, isDark }) => {
+  const hasNotes = Object.values(userNotes).some(note => note.trim().length > 0);
+
+  return (
+    <div className="max-w-4xl mx-auto px-4 py-8">
+      <h2 className={`text-3xl font-bold mb-2 ${isDark ? 'text-white' : 'text-slate-900'}`}>My Study Notebook</h2>
+      <p className={`mb-8 ${isDark ? 'text-slate-400' : 'text-slate-600'}`}>
+        Review all your notes from each learning module.
+      </p>
+
+      <div className="grid gap-6">
+        {hasNotes ? (
+           modules.map(mod => {
+             const note = userNotes[mod.id];
+             if (!note || !note.trim()) return null;
+             return (
+               <div key={mod.id} className={`p-6 rounded-xl border shadow-sm transition-all hover:shadow-md ${isDark ? 'bg-slate-800 border-slate-700' : 'bg-white border-gray-100'}`}>
+                  <div className="flex items-center gap-3 mb-4 pb-4 border-b border-dashed border-gray-200 dark:border-slate-700">
+                     <div className={`p-2 rounded-lg ${isDark ? 'bg-blue-900/30 text-blue-400' : 'bg-blue-50 text-blue-600'}`}>
+                        <BookOpen size={20} />
+                     </div>
+                     <h3 className={`font-bold text-lg ${isDark ? 'text-slate-200' : 'text-slate-800'}`}>{mod.title}</h3>
+                  </div>
+                  <div className={`p-4 rounded-lg whitespace-pre-wrap font-mono text-sm leading-relaxed ${isDark ? 'bg-slate-900 text-slate-300 border border-slate-700' : 'bg-yellow-50 text-slate-800 border border-yellow-100'}`}>
+                     {note}
+                  </div>
+               </div>
+             )
+           })
+        ) : (
+           <div className={`text-center py-20 rounded-2xl border-2 border-dashed ${isDark ? 'border-slate-700 text-slate-500' : 'border-gray-200 text-slate-400'}`}>
+              <FileText size={48} className="mx-auto mb-4 opacity-50" />
+              <h3 className="text-xl font-bold mb-2">No Notes Yet</h3>
+              <p className="max-w-md mx-auto">Go to the Modules section and add notes to track your key takeaways and lab results.</p>
+           </div>
+        )}
+      </div>
+    </div>
+  );
+};
+
 const MainApp = () => {
   const [activeTab, setActiveTab] = useState('home');
   const [darkMode, setDarkMode] = useState(false);
@@ -1170,7 +1271,7 @@ const MainApp = () => {
               {[
                 { 
                   label: "Structured Modules", 
-                  desc: "8 Core modules covering 100% of exam topics.",
+                  desc: "12 Core modules covering 100% of exam topics.",
                   val: `${Math.round(globalProgress)}% Done`, 
                   color: "text-blue-500", 
                   bg: "bg-blue-500/10",
@@ -1444,6 +1545,9 @@ const MainApp = () => {
           </div>
         );
       
+      case 'notebook':
+         return <Notebook modules={modulesData} userNotes={userNotes} isDark={darkMode} />;
+
       default: return null;
     }
   };
@@ -1496,6 +1600,8 @@ const MainApp = () => {
                   <div className={`absolute top-full right-0 mt-2 w-48 rounded-xl shadow-xl border overflow-hidden animate-fade-in
                     ${darkMode ? 'bg-slate-900 border-slate-700' : 'bg-white border-slate-100'}
                   `}>
+                      <DropdownItem id="notebook" label="My Notebook" icon={FileText} />
+                      <div className={`h-px my-1 ${darkMode ? 'bg-slate-800' : 'bg-gray-100'}`}></div>
                       <DropdownItem id="cli" label="CLI Simulator" icon={Play} />
                       <DropdownItem id="flashcards" label="Flashcards" icon={Layers} />
                       <DropdownItem id="cheatsheet" label="Cheatsheet" icon={List} />
