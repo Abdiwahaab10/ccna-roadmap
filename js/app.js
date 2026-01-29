@@ -21,6 +21,9 @@ import {
     { term: "ROAS", def: "Router on a Stick. Using a router to route traffic between VLANs." },
     { term: "SSH", def: "Secure Shell. A protocol for secure remote login." },
     { term: "Subnetting", def: "The process of dividing a single network into smaller sub-networks." },
+    { term: "STP", def: "Spanning Tree Protocol. Prevents loops in Layer 2 switched networks." },
+    { term: "EtherChannel", def: "A technology used to group multiple physical links into one logical link." },
+    { term: "DTP", def: "Dynamic Trunking Protocol. Cisco proprietary protocol to negotiate trunking." },
     { term: "Trunk", def: "A link carrying traffic for multiple VLANs (usually using 802.1Q)." },
     { term: "VLAN", def: "Virtual Local Area Network. Logically grouping devices on the same switch." },
     { term: "API", def: "Application Programming Interface. Allows two applications to talk to each other." },
@@ -312,6 +315,25 @@ import {
   R1(config-router)# passive-interface g0/1
   R1(config-router)# end
   R1# show ip ospf neighbor`
+    },
+    {
+      title: "NAT Overload (PAT)",
+      desc: "U beddelida Private IPs badan hal Public IP.",
+      scenario: "Scenario: ISP-gu wuxuu ku siiyay hal Public IP dhanka interface-ka G0/0. Shabakada gudaha (Inside) waa 192.168.10.0/24.",
+      code: `! Create Access List defining traffic to translate
+  R1(config)# access-list 1 permit 192.168.10.0 0.0.0.255
+  
+  ! Define Inside and Outside interfaces
+  R1(config)# interface g0/1
+  R1(config-if)# ip nat inside
+  R1(config-if)# exit
+  
+  R1(config)# interface g0/0
+  R1(config-if)# ip nat outside
+  R1(config-if)# exit
+  
+  ! Enable NAT Overload
+  R1(config)# ip nat inside source list 1 interface g0/0 overload`
     }
   ];
 
