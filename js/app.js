@@ -266,100 +266,150 @@ import {
   // --- DATA: Labs ---
   const labsData = [
     {
-      title: "Basic Switch Security",
-      desc: "Dejinta magaca, sirta, iyo SSH.",
-      scenario: "Scenario: Shirkad cusub ayaa rabta in Switch-yada la sugo. Waa inaad xirta console-ka iyo remote access.",
-      code: `Switch> enable
-  Switch# configure terminal
-  Switch(config)# hostname SW1
-  SW1(config)# enable secret cisco123
-  SW1(config)# service password-encryption
-  SW1(config)# line console 0
-  SW1(config-line)# password cisco
-  SW1(config-line)# login
-  SW1(config-line)# exit
-  SW1(config)# ip domain-name lab.local
-  SW1(config)# crypto key generate rsa modulus 1024
-  SW1(config)# line vty 0 4
-  SW1(config-line)# transport input ssh
-  SW1(config-line)# login local
-  SW1(config-line)# end
-  SW1# copy running-config startup-config`
+      title: "1. Device Hardening (Beginner)",
+      desc: "Suggida amniga aasaasiga ah ee Router/Switch.",
+      scenario: "Scenario: Shirkaddu waxay soo iibsatay Router cusub. U bixi magac, xir Console-ka, oo samee Banner uga digaya dadka aan fasaxa haysan. (Basic Config)",
+      code: `Router> enable
+  Router# configure terminal
+  Router(config)# hostname Office-Router
+  Office-Router(config)# enable secret cisco@123
+  Office-Router(config)# service password-encryption
+  Office-Router(config)# banner motd # Authorized Access Only! #
+  Office-Router(config)# line console 0
+  Office-Router(config-line)# password consolepass
+  Office-Router(config-line)# login
+  Office-Router(config-line)# logging synchronous
+  Office-Router(config-line)# exit`
     },
     {
-      title: "VLANs & Trunking",
-      desc: "Abuurista VLANs iyo isku xirka Switch-yada.",
-      scenario: "Scenario: Waxaad haysataa waaxda Sales (VLAN 10) iyo IT (VLAN 20). Isku xir laba switch adigoo isticmaalaya Trunk.",
+      title: "2. Interface Config & Descriptions (Beginner)",
+      desc: "Habaynta Port-yada iyo Dokumentiga.",
+      scenario: "Scenario: Isku xir Router-ka iyo ISP (G0/0) iyo LAN-ka xafiiska (G0/1). Ku qor sharraxaad (description) port kasta si loo ogaado waxa ku xiran.",
+      code: `Office-Router(config)# interface g0/0
+  Office-Router(config-if)# description Link-to-ISP
+  Office-Router(config-if)# ip address 203.0.113.10 255.255.255.252
+  Office-Router(config-if)# no shutdown
+  Office-Router(config-if)# exit
+  
+  Office-Router(config)# interface g0/1
+  Office-Router(config-if)# description LAN-Gateway-for-Workstations
+  Office-Router(config-if)# ip address 192.168.10.1 255.255.255.0
+  Office-Router(config-if)# no shutdown
+  Office-Router(config-if)# end
+  Office-Router# show ip interface brief`
+    },
+    {
+      title: "3. Neighbor Discovery (CDP/LLDP) (Beginner)",
+      desc: "Ogaanshaha qalabka kuu dhow.",
+      scenario: "Scenario: Waxaad timid xafiis cusub, mana haysatid map-ka shabakadda. Isticmaal CDP si aad u ogaato Switch-yada iyo Router-yada ku xiran qalabkaaga.",
+      code: `! Check enabled protocols
+  SW1# show cdp neighbors
+  SW1# show cdp neighbors detail
+  
+  ! If using non-Cisco devices, use LLDP
+  SW1(config)# lldp run
+  SW1# show lldp neighbors`
+    },
+    {
+      title: "4. VLANs & Access Ports (Intermediate)",
+      desc: "Kala qaybinta Waaxyaha (VLANs).",
+      scenario: "Scenario: Xafiisku wuxuu leeyahay waaxda HR (VLAN 10) iyo IT (VLAN 20). Abuur VLAN-yada oo ku xir PC-yada (Access Ports).",
       code: `SW1(config)# vlan 10
-  SW1(config-vlan)# name SALES
+  SW1(config-vlan)# name HR-DEPT
   SW1(config-vlan)# exit
   SW1(config)# vlan 20
-  SW1(config-vlan)# name IT
+  SW1(config-vlan)# name IT-DEPT
   SW1(config-vlan)# exit
   
-  ! Assign Ports
-  SW1(config)# interface range fa0/1 - 10
+  ! Assign HR PC to Port 1-5
+  SW1(config)# interface range f0/1 - 5
   SW1(config-if-range)# switchport mode access
   SW1(config-if-range)# switchport access vlan 10
   SW1(config-if-range)# exit
   
-  ! Configure Trunk
-  SW1(config)# interface gig0/1
+  ! Assign IT PC to Port 6-10
+  SW1(config)# interface range f0/6 - 10
+  SW1(config-if-range)# switchport mode access
+  SW1(config-if-range)# switchport access vlan 20`
+    },
+    {
+      title: "5. Router-on-a-Stick (Inter-VLAN) (Intermediate)",
+      desc: "Isku xirka VLAN-yada kala duwan.",
+      scenario: "Scenario: HR iyo IT ma wada hadli karaan. Isticmaal Router (R1) iyo Sub-interfaces si aad isugu xirto (Routing).",
+      code: `! Configure Trunk on Switch side first
+  SW1(config)# interface g0/1
   SW1(config-if)# switchport mode trunk
-  SW1(config-if)# switchport trunk native vlan 99
-  SW1(config-if)# end`
-    },
-    {
-      title: "OSPF Configuration",
-      desc: "Dhaqaajinta Routing Protocol-ka OSPF.",
-      scenario: "Scenario: Isku xir 3 Router adigoo isticmaalaya OSPF Area 0. Hubi in ay wada hadli karaan.",
-      code: `R1(config)# router ospf 1
-  R1(config-router)# router-id 1.1.1.1
-  R1(config-router)# network 192.168.10.0 0.0.0.255 area 0
-  R1(config-router)# network 10.0.0.0 0.0.0.3 area 0
-  R1(config-router)# passive-interface g0/1
-  R1(config-router)# end
-  R1# show ip ospf neighbor`
-    },
-    {
-      title: "NAT Overload (PAT)",
-      desc: "U beddelida Private IPs badan hal Public IP.",
-      scenario: "Scenario: ISP-gu wuxuu ku siiyay hal Public IP dhanka interface-ka G0/0. Shabakada gudaha (Inside) waa 192.168.10.0/24.",
-      code: `! Create Access List defining traffic to translate
-  R1(config)# access-list 1 permit 192.168.10.0 0.0.0.255
   
-  ! Define Inside and Outside interfaces
+  ! Router Configuration
   R1(config)# interface g0/1
-  R1(config-if)# ip nat inside
+  R1(config-if)# no shutdown
   R1(config-if)# exit
   
+  ! Sub-interface for HR (VLAN 10)
+  R1(config)# interface g0/1.10
+  R1(config-subif)# encapsulation dot1q 10
+  R1(config-subif)# ip address 192.168.10.1 255.255.255.0
+  
+  ! Sub-interface for IT (VLAN 20)
+  R1(config)# interface g0/1.20
+  R1(config-subif)# encapsulation dot1q 20
+  R1(config-subif)# ip address 192.168.20.1 255.255.255.0`
+    },
+    {
+      title: "6. Static Routing (Intermediate)",
+      desc: "Isku xirka laba laamood (Branches).",
+      scenario: "Scenario: Xarunta dhexe (HQ) waxay rabtaa inay la xiriirto laanta 'Branch A' (192.168.20.0). Next-hop waa 10.0.0.2.",
+      code: `HQ-Router(config)# ip route 192.168.20.0 255.255.255.0 10.0.0.2
+  
+  ! Backup Route (Floating Static) with higher AD
+  HQ-Router(config)# ip route 192.168.20.0 255.255.255.0 10.0.0.6 200
+  
+  ! Verify
+  HQ-Router# show ip route static`
+    },
+    {
+      title: "7. DHCP Server (Advanced)",
+      desc: "IP siinta tooska ah.",
+      scenario: "Scenario: Workstation-yada ha helaan IP, Gateway, iyo DNS si toos ah. Router-ka ka dhig Server.",
+      code: `R1(config)# ip dhcp pool OFFICE-POOL
+  R1(dhcp-config)# network 192.168.10.0 255.255.255.0
+  R1(dhcp-config)# default-router 192.168.10.1
+  R1(dhcp-config)# dns-server 8.8.8.8
+  R1(dhcp-config)# lease 7
+  R1(dhcp-config)# exit
+  R1(config)# ip dhcp excluded-address 192.168.10.1 192.168.10.10`
+    },
+    {
+      title: "8. Port Security (Advanced)",
+      desc: "Xaddidaadda cidda soo gali karta Switch-ka.",
+      scenario: "Scenario: Xafiiska Reception-ka, kaliya hal PC ayaa la ogol yahay in lagu xiro Port F0/1. Haddii mid kale lagu xiro, Port-gu ha xirmo.",
+      code: `SW1(config)# interface f0/1
+  SW1(config-if)# switchport mode access
+  SW1(config-if)# switchport port-security
+  SW1(config-if)# switchport port-security maximum 1
+  SW1(config-if)# switchport port-security mac-address sticky
+  SW1(config-if)# switchport port-security violation shutdown
+  SW1(config-if)# end
+  SW1# show port-security interface f0/1`
+    },
+    {
+      title: "9. NAT Overload (PAT) (Advanced)",
+      desc: "Internet u ogolaanshaha Xafiiska.",
+      scenario: "Scenario: Dhammaan shaqaalaha (192.168.10.0/24) waa inay Internetka ka galaan hal Public IP oo ISP bixiyay.",
+      code: `R1(config)# access-list 1 permit 192.168.10.0 0.0.0.255
   R1(config)# interface g0/0
   R1(config-if)# ip nat outside
-  R1(config-if)# exit
-  
-  ! Enable NAT Overload
+  R1(config)# interface g0/1
+  R1(config-if)# ip nat inside
   R1(config)# ip nat inside source list 1 interface g0/0 overload`
     },
     {
-      title: "DHCP Server Config",
-      desc: "Router ka dhig DHCP server.",
-      scenario: "Scenario: Router-ku (R1) ha siiyo IP addresses shabakadda 192.168.1.0/24. Gateway waa 192.168.1.1, DNS waa 8.8.8.8.",
-      code: `R1(config)# ip dhcp excluded-address 192.168.1.1 192.168.1.10
-  R1(config)# ip dhcp pool LAN-POOL
-  R1(dhcp-config)# network 192.168.1.0 255.255.255.0
-  R1(dhcp-config)# default-router 192.168.1.1
-  R1(dhcp-config)# dns-server 8.8.8.8
-  R1(dhcp-config)# exit`
-    },
-    {
-      title: "Standard ACL",
-      desc: "Xannib PC gaar ah (Security).",
-      scenario: "Scenario: Diid PC-ga 192.168.10.5 inuu galo Server-ka (deny), laakiin ogoloow cid kasta oo kale (permit any).",
-      code: `R1(config)# access-list 10 deny host 192.168.10.5
+      title: "10. Standard ACL (Advanced)",
+      desc: "Security Filtering.",
+      scenario: "Scenario: Diid PC-ga 'Guest' (192.168.10.50) inuu galo Server-ka Accounting-ka, laakiin kuwa kale fasax.",
+      code: `R1(config)# access-list 10 deny host 192.168.10.50
   R1(config)# access-list 10 permit any
-  
-  ! Apply to interface closest to destination (Standard ACL rule)
-  R1(config)# interface g0/0
+  R1(config)# interface g0/1
   R1(config-if)# ip access-group 10 out`
     }
   ];
