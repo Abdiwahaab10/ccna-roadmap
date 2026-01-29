@@ -96,6 +96,11 @@ import {
     { q: "Which command is used to configure a trunk port?", options: ["switchport mode access", "switchport mode trunk", "ip routing", "encapsulation dot1q"], ans: 1 },
     { q: "Which protocol is used to map IP addresses to MAC addresses?", options: ["DNS", "DHCP", "ARP", "ICMP"], ans: 2 },
     { q: "What is the default subnet mask for a Class C address?", options: ["255.0.0.0", "255.255.0.0", "255.255.255.0", "255.255.255.255"], ans: 2 },
+    { q: "Which data format is commonly used in REST APIs?", options: ["HTML", "XML", "JSON", "CSV"], ans: 2 },
+    { q: "What does SDN separate from the Data Plane?", options: ["Management Plane", "Control Plane", "Physical Plane", "Application Plane"], ans: 1 },
+    { q: "Which command encrypts all plaintext passwords on a Cisco device?", options: ["enable secret", "service password-encryption", "crypto key generate", "security passwords min-length"], ans: 1 },
+    { q: "What is the primary function of a VLAN?", options: ["Increase broadcast domain size", "Decrease collision domains", "Logically separate broadcast domains", "Routing between networks"], ans: 2 },
+    { q: "Which IPv6 address type is equivalent to a private IPv4 address?", options: ["Global Unicast", "Link-Local", "Unique Local", "Anycast"], ans: 2 },
   ];
   
   // --- DATA: Resources ---
@@ -106,6 +111,7 @@ import {
         { title: "Jeremy's IT Lab (Free CCNA Course)", link: "https://www.youtube.com/playlist?list=PLxbwE86jKRgMpuZuLBivzlM8s2Dk5lXBQ", icon: Youtube },
         { title: "NetworkChuck (CCNA Series)", link: "https://www.youtube.com/playlist?list=PLIhvC56v63IJVXv0GGk4OBk7GMP6eZRHh", icon: Youtube },
         { title: "Keith Barker (CBT Nuggets)", link: "https://www.youtube.com/user/Keith6783", icon: Youtube },
+        { title: "Kevin Wallace Training", link: "https://www.youtube.com/@kwallacetraining", icon: Youtube },
       ]
     },
     {
@@ -114,13 +120,15 @@ import {
         { title: "Download Cisco Packet Tracer", link: "https://www.netacad.com/courses/packet-tracer", icon: Download },
         { title: "Anki Flashcards (Memorization)", link: "https://apps.ankiweb.net/", icon: Download },
         { title: "Subnetting Practice Game", link: "https://subnettingpractice.com/", icon: ExternalLink },
+        { title: "Cisco Software Download", link: "https://software.cisco.com/download/home", icon: Download },
       ]
     },
     {
-      category: "Official Books",
+      category: "Official Books & Docs",
       items: [
-        { title: "CCNA 200-301 Official Cert Guide (Odom)", link: "#", icon: BookOpen },
-        { title: "31 Days Before your CCNA Exam", link: "#", icon: BookOpen },
+        { title: "CCNA 200-301 Official Cert Guide (Odom)", link: "https://www.ciscopress.com/promotions/new-cisco-certifications-142035", icon: BookOpen },
+        { title: "31 Days Before your CCNA Exam", link: "https://www.ciscopress.com/", icon: BookOpen },
+        { title: "Cisco CCNA Exam Topics (Official)", link: "https://learningnetwork.cisco.com/s/ccna-exam-topics", icon: ExternalLink },
       ]
     }
   ];
